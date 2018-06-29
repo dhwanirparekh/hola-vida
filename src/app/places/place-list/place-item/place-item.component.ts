@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Place } from '../../place.model';
 
 @Component({
   selector: 'app-place-item',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaceItemComponent implements OnInit {
 
+  @Input() place: Place;
+  @Output() selectedPlaceItem = new EventEmitter<void>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onPlaceItemSelection(){
+    this.selectedPlaceItem.emit();
   }
 
 }

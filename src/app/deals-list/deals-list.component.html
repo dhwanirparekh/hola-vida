@@ -1,12 +1,12 @@
 <div class="col-xs-20">
-  <app-deals-edit></app-deals-edit>
+  <app-deals-edit (dealAdded)= "addDealToList($event)"></app-deals-edit>
   <hr>
   <ul class="list-group">
     <a 
     class="list-group-item" 
     style="cursor: pointer"
-    *ngFor = "let hotel of hotels"
-    > {{hotel.name}}({{hotel.noOfDeals}})
+    *ngFor = "let hotel of hotels"> 
+    {{hotel.name}}({{hotel.noOfDeals}})
     </a>
   </ul>
 </div>

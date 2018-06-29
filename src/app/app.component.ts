@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   
+  loadedFeature: string = "deals";
+
+  onMenuClick(selection: string){
+    this.loadedFeature = selection;
+  }
 }

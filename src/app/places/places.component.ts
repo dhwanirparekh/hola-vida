@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import {Place} from "./place.model";
 
 @Component({
     selector: 'app-places',
@@ -6,5 +7,11 @@ import { Component } from "@angular/core";
     styleUrls: ['./places.component.css']
 })
 export class PlacesComponent{
+
+    showDetailsFor: Place;
+
+    displayPlaceDetails(selectedPlaceItem: Place){
+        this.showDetailsFor = selectedPlaceItem;
+    }
 
 }

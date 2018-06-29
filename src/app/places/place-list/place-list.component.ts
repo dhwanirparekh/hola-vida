@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter,Output} from '@angular/core';
 import { Place } from '../place.model';
 
 @Component({
@@ -7,6 +7,7 @@ import { Place } from '../place.model';
   styleUrls: ['./place-list.component.css']
 })
 export class PlaceListComponent implements OnInit {
+  
   places: Place[] = [
     new Place('Mysore', 'Mysore officially Mysuru, is the third most populous city in the state of Karnataka, India',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mysore_Palace_Morning.jpg/1280px-Mysore_Palace_Morning.jpg') ,
@@ -14,9 +15,15 @@ export class PlaceListComponent implements OnInit {
     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Lonavalamh.jpg/800px-Lonavalamh.jpg') 
   ];
 
+  @Output() placeItemWasSelected = new EventEmitter<Place>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  propogatePlaceItem(selectedPlaceItem: Place){
+    this.placeItemWasSelected.emit(selectedPlaceItem);
   }
 
 }

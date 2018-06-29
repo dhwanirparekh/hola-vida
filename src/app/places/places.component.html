@@ -1,8 +1,14 @@
 <div class="row">
     <div class="col-md-5">
-        <app-place-list></app-place-list>
+        <app-place-list (placeItemWasSelected)="displayPlaceDetails($event)"></app-place-list>
     </div>
     <div class="col-md-7">
-        <app-place-details></app-place-details>
+        <app-place-details 
+        *ngIf = "showDetailsFor; else showInfoText"
+        [selectedPlace] = "showDetailsFor"></app-place-details>
+        <ng-template #showInfoText>
+            <p>Please select the Place!</p>
+        </ng-template>
+
     </div>
 </div>

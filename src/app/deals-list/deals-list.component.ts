@@ -16,6 +16,12 @@ export class DealsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("Again intializing Hotel list");
+  }
+
+  addDealToList(newDeal: Hotel){
+    console.log("Added - " + newDeal.name);
+    this.hotels.push(newDeal);
   }
 
 }

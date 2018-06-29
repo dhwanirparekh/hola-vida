@@ -1,3 +1,15 @@
-<p>
-  place-item works!
-</p>
+<a 
+  href="#" 
+    class="list-group-item clearfix" (click) = "onPlaceItemSelection()">
+      <div class="pull-left">
+        <h4 class="list-group-item-heading">{{place.name}}</h4>
+        <p class="list-group-item-text">{{place.description}}</p>
+      </div>
+      <span class="pull-right">
+        <img 
+        [src] ="place.imagePath" 
+        alt="{{place.name}}" 
+        class="img-responsive" 
+        style="max-height: 50px;">
+      </span>
+</a>
