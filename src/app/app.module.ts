@@ -9,6 +9,8 @@ import { PlaceDetailsComponent } from './places/place-details/place-details.comp
 import { PlaceItemComponent } from './places/place-list/place-item/place-item.component';
 import { DealsListComponent } from './deals-list/deals-list.component';
 import { DealsEditComponent } from './deals-list/deals-edit/deals-edit.component';
+import {DropDownDirective} from './shared/dropdown.directive';
+import { DealsService } from './deals-list/deals.service';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,13 @@ import { DealsEditComponent } from './deals-list/deals-edit/deals-edit.component
     PlaceDetailsComponent,
     PlaceItemComponent,
     DealsListComponent,
-    DealsEditComponent
+    DealsEditComponent,
+    DropDownDirective
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [DealsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

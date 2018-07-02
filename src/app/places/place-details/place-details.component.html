@@ -10,14 +10,14 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div class="btn-group">
+    <div class="btn-group" appDropDown>
       <button 
         type="button" 
         class="btn btn-primary dropdown-toggle">
         Manage Places <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#">To Deal List</a></li>
+        <li><a (click) = addToDealList() style = "cursor: pointer;">To Deal List</a></li>
         <li><a href="#">Edit Place</a></li>
         <li><a href="#">Delete Place</a></li>
       </ul>
@@ -31,6 +31,10 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-      Hotels
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let hotel of selectedPlace.hotels">
+          {{ hotel.name }} - {{ hotel.noOfDeals }}
+        </li>
+      </ul>
     </div>
   </div>

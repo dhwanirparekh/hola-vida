@@ -1,17 +1,26 @@
-import { Component } from "@angular/core";
-import {Place} from "./place.model";
+import { Component, OnInit } from "@angular/core";
+import { PlacesService } from "./places.service";
+import { Place } from "./place.model";
 
 @Component({
     selector: 'app-places',
     templateUrl: './places.component.html',
-    styleUrls: ['./places.component.css']
+    styleUrls: ['./places.component.css'],
+    providers: [PlacesService]
+    
 })
-export class PlacesComponent{
-
+export class PlacesComponent implements OnInit{
+   
     showDetailsFor: Place;
 
-    displayPlaceDetails(selectedPlaceItem: Place){
-        this.showDetailsFor = selectedPlaceItem;
+    constructor(private placesService: PlacesService){}
+
+    ngOnInit(){
+        this.placesService.placeSelected.subscribe(
+            (place: Place) => {
+                this.showDetailsFor = place;
+            }
+        )
     }
 
 }
