@@ -1,6 +1,7 @@
 import {Hotel} from "../shared/hotel.model";
 
 export class Place{
+   
     public name: string;
     public description: string;
     public imagePath: string;

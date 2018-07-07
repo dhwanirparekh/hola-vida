@@ -1,9 +1,9 @@
 import { Hotel } from "../shared/hotel.model";
-import { EventEmitter } from "@angular/core";
+import { Subject } from "rxjs";
 
 export class DealsService{
     
-    dealAdded = new EventEmitter<Hotel[]>();
+    dealAdded = new Subject<Hotel[]>();
 
     private hotels: Hotel[] = [
         new Hotel('Della Adventures', 5), 
@@ -16,12 +16,12 @@ export class DealsService{
 
     addDeal(deal: Hotel){
         this.hotels.push(deal);
-        this.dealAdded.emit(this.hotels);
+        this.dealAdded.next(this.hotels);
     }
 
     addDeals(deals: Hotel[]){
         this.hotels.push(...deals);
-        this.dealAdded.emit(this.hotels);
+        this.dealAdded.next(this.hotels);
     }
     
 }

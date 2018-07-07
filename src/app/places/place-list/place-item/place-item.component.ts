@@ -1,6 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Place } from '../../place.model';
-import { PlacesService } from '../../places.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-place-item',
@@ -10,14 +10,12 @@ import { PlacesService } from '../../places.service';
 export class PlaceItemComponent implements OnInit {
 
   @Input() place: Place;
+  @Input() placeItemIndex: number;
   
-  constructor(private placesService: PlacesService) { }
+  constructor(private router: Router,
+  private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-
-  onPlaceItemSelection(){
-    this.placesService.placeSelected.emit(this.place);
   }
 
 }

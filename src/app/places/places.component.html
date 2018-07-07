@@ -3,12 +3,6 @@
         <app-place-list></app-place-list>
     </div>
     <div class="col-md-7">
-        <app-place-details 
-        *ngIf = "showDetailsFor; else showInfoText"
-        [selectedPlace] = "showDetailsFor"></app-place-details>
-        <ng-template #showInfoText>
-            <p>Please select the Place!</p>
-        </ng-template>
-
+        <router-outlet></router-outlet>
     </div>
 </div>

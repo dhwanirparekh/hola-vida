@@ -34,9 +34,11 @@ export class PlacesService{
           return this.places.slice();
     }
 
-    placeSelected = new EventEmitter<Place>();
-
     addHotelToDealList(hotels: Hotel[]){
           this.dealsService.addDeals(hotels);
+    }
+
+    getPlaceAtIndex(placeItemIndex: number){
+        return this.places[placeItemIndex];
     }
 }

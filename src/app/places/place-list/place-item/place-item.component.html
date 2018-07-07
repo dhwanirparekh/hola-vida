@@ -1,6 +1,8 @@
 <a 
-  href="#" 
-    class="list-group-item clearfix" (click) = "onPlaceItemSelection()">
+  style = "cursor: pointer;"
+  class="list-group-item clearfix"
+  [routerLink] = "[placeItemIndex]"
+  routerLinkActive = "active">
       <div class="pull-left">
         <h4 class="list-group-item-heading">{{place.name}}</h4>
         <p class="list-group-item-text">{{place.description}}</p>

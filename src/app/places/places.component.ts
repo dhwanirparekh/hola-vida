@@ -11,16 +11,10 @@ import { Place } from "./place.model";
 })
 export class PlacesComponent implements OnInit{
    
-    showDetailsFor: Place;
-
-    constructor(private placesService: PlacesService){}
+    constructor(){}
 
     ngOnInit(){
-        this.placesService.placeSelected.subscribe(
-            (place: Place) => {
-                this.showDetailsFor = place;
-            }
-        )
+        
     }
 
 }

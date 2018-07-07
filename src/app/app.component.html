@@ -1,9 +1,8 @@
-<app-header (selectedMenu)="onMenuClick($event)"></app-header>
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-20">
-      <app-deals-list *ngIf="loadedFeature === 'deals'"></app-deals-list>
-      <app-places *ngIf="loadedFeature !== 'deals'"></app-places>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

@@ -1,14 +1,17 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-success">New Place</button>
+    <button 
+    class="btn btn-success"
+    [routerLink] = "['new']">New Place</button>
   </div>
 </div>
 <hr>
 <div class="row">
   <div class="col-xs-12">
     <app-place-item 
-      *ngFor="let placeItem of places" 
+      *ngFor="let placeItem of places; let i = index" 
       [place]="placeItem"
+      [placeItemIndex]= "i"
     ></app-place-item>
   </div>
 </div>

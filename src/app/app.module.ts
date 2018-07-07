@@ -11,6 +11,10 @@ import { DealsListComponent } from './deals-list/deals-list.component';
 import { DealsEditComponent } from './deals-list/deals-edit/deals-edit.component';
 import {DropDownDirective} from './shared/dropdown.directive';
 import { DealsService } from './deals-list/deals.service';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { DefaultPlaceDetailsComponent } from './places/default-place-details/default-place-details.component';
+import { PlaceEditComponent } from './places/place-edit/place-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +26,14 @@ import { DealsService } from './deals-list/deals.service';
     PlaceItemComponent,
     DealsListComponent,
     DealsEditComponent,
-    DropDownDirective
+    DropDownDirective,
+    DefaultPlaceDetailsComponent,
+    PlaceEditComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [DealsService],
   bootstrap: [AppComponent]

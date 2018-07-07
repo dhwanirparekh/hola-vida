@@ -1,7 +1,7 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Place } from '../place.model';
 import { PlacesService } from "../places.service";
-import { Hotel } from "../../shared/hotel.model";
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-place-details',
@@ -10,11 +10,19 @@ import { Hotel } from "../../shared/hotel.model";
 })
 export class PlaceDetailsComponent implements OnInit {
   
-  @Input() selectedPlace: Place;
+  selectedPlace: Place;
   
-  constructor(private placesService: PlacesService) { }
+  constructor(private placesService: PlacesService,
+  private route: ActivatedRoute) { }
 
   ngOnInit() {
+    
+    this.route.params.subscribe(
+      (params: Params) => {
+        const selectedPlaceIndex = params['placeIndex'];
+        this.selectedPlace = this.placesService.getPlaceAtIndex(selectedPlaceIndex);
+      }
+    )
   }
 
   addToDealList(){
