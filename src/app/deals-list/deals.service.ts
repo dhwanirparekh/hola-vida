@@ -3,7 +3,8 @@ import { Subject } from "rxjs";
 
 export class DealsService{
     
-    dealAdded = new Subject<Hotel[]>();
+    dealChanged = new Subject<Hotel[]>();
+    dealEditing = new Subject<number>();
 
     private hotels: Hotel[] = [
         new Hotel('Della Adventures', 5), 
@@ -14,14 +15,28 @@ export class DealsService{
         return this.hotels.slice();
     }
 
+    getHotel(index: number){
+        return this.hotels[index];
+    }
+
     addDeal(deal: Hotel){
         this.hotels.push(deal);
-        this.dealAdded.next(this.hotels);
+        this.dealChanged.next(this.hotels.slice());
     }
 
     addDeals(deals: Hotel[]){
         this.hotels.push(...deals);
-        this.dealAdded.next(this.hotels);
+        this.dealChanged.next(this.hotels.slice());
+    }
+
+    updateDeal(index: number, deal: Hotel){
+        this.hotels[index] = deal;
+        this.dealChanged.next(this.hotels.slice());
     }
     
+    deleteDeal(index: number){
+        this.hotels.splice(index, 1);
+        this.dealChanged.next(this.hotels.slice());
+    }
+
 }

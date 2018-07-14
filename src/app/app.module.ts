@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { PlacesComponent } from './places/places.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,9 +11,10 @@ import { DealsEditComponent } from './deals-list/deals-edit/deals-edit.component
 import {DropDownDirective} from './shared/dropdown.directive';
 import { DealsService } from './deals-list/deals.service';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultPlaceDetailsComponent } from './places/default-place-details/default-place-details.component';
 import { PlaceEditComponent } from './places/place-edit/place-edit.component';
+import { PlacesService } from './places/places.service';
 
 @NgModule({
   declarations: [
@@ -33,9 +33,10 @@ import { PlaceEditComponent } from './places/place-edit/place-edit.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [DealsService],
+  providers: [DealsService, PlacesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

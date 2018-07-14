@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Place } from '../place.model';
 import { PlacesService } from "../places.service";
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-place-details',
@@ -11,16 +11,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class PlaceDetailsComponent implements OnInit {
   
   selectedPlace: Place;
+  selectedPlaceIndex: number;
   
   constructor(private placesService: PlacesService,
-  private route: ActivatedRoute) { }
+  private route: ActivatedRoute,
+  private router: Router) { }
 
   ngOnInit() {
     
     this.route.params.subscribe(
       (params: Params) => {
-        const selectedPlaceIndex = params['placeIndex'];
-        this.selectedPlace = this.placesService.getPlaceAtIndex(selectedPlaceIndex);
+        this.selectedPlaceIndex = params['placeIndex'];
+        this.selectedPlace = this.placesService.getPlaceAtIndex(this.selectedPlaceIndex);
       }
     )
   }
@@ -29,4 +31,8 @@ export class PlaceDetailsComponent implements OnInit {
     this.placesService.addHotelToDealList(this.selectedPlace.hotels);
   }
 
+  deleteFromPlaceList(){
+    this.placesService.deletePlace(this.selectedPlaceIndex);
+    this.router.navigate(['/places']);
+  }
 }

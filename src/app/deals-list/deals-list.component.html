@@ -5,7 +5,8 @@
     <a 
     class="list-group-item" 
     style="cursor: pointer"
-    *ngFor = "let hotel of hotels"> 
+    *ngFor = "let hotel of hotels; let i = index "
+    (click) = onDealEdit(i)> 
     {{hotel.name}}({{hotel.noOfDeals}})
     </a>
   </ul>

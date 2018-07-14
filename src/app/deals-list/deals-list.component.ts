@@ -18,12 +18,16 @@ export class DealsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.hotels = this.dealsService.getHotels();
-    this.subscription = this.dealsService.dealAdded.subscribe(
+    this.subscription = this.dealsService.dealChanged.subscribe(
       (newhotelsList: Hotel[]) => {
         this.hotels = newhotelsList;
       }
     )
 
+  }
+
+  onDealEdit(index: number){
+    this.dealsService.dealEditing.next(index);
   }
 
   ngOnDestroy(){

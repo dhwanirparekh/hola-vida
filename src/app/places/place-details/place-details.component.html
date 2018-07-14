@@ -19,7 +19,7 @@
       <ul class="dropdown-menu">
         <li><a (click) = addToDealList() style = "cursor: pointer;">To Deal List</a></li>
         <li><a style = "cursor: pointer;" [routerLink] = "['edit']">Edit Place</a></li>
-        <li><a style = "cursor: pointer;">Delete Place</a></li>
+        <li><a style = "cursor: pointer;" (click) = deleteFromPlaceList()>Delete Place</a></li>
       </ul>
     </div>
   </div>

@@ -2,10 +2,13 @@ import {Place} from './place.model';
 import { EventEmitter, Injectable} from '@angular/core';
 import { Hotel } from '../shared/hotel.model';
 import { DealsService } from '../deals-list/deals.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class PlacesService{
 
+    placeListChanged = new Subject<Place[]>();
+    
     constructor(private dealsService: DealsService){
 
     }
@@ -41,4 +44,20 @@ export class PlacesService{
     getPlaceAtIndex(placeItemIndex: number){
         return this.places[placeItemIndex];
     }
+
+    addPlace(newplace: Place){
+        this.places.push(newplace);
+        this.placeListChanged.next(this.places.slice());
+    }
+
+    updatePlace(index: number, newplace: Place){
+        this.places[index]=newplace;
+        this.placeListChanged.next(this.places.slice());
+    }
+
+    deletePlace(index: number){
+        this.places.splice(index,1);
+        this.placeListChanged.next(this.places.slice());
+    }
+    
 }

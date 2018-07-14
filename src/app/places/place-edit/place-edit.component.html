@@ -1,3 +1,94 @@
-<p>
-  place-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup] = "placeEditForm" (ngSubmit) = "onSubmit()"> 
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" 
+          class="btn btn-success" 
+          style="margin-right: 5px"
+          [disabled]="!placeEditForm.valid">Save</button>
+          <button type="button" 
+          class="btn btn-danger" 
+          style="margin-right: 5px"
+          (click)="onNavigateAway()">Cancel</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="placeName">Name</label>
+            <input type="text" 
+            name="placeName" 
+            id="placeName" 
+            class="form-control"
+            formControlName = "name">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text" 
+            name="description" 
+            id="description" 
+            rows="6" 
+            class="form-control"
+            formControlName = "description"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="imagePath">Image URL</label>
+              <input type="text" 
+              name="imagePath" 
+              id="imagePath" 
+              class="form-control"
+              formControlName = "imagePath"
+              #imagePath
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <img [src]="imagePath.value" class="img-responsive">
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12" formArrayName="hotels">
+          <div class="row"
+          *ngFor = "let hotelCtrl of placeEditForm.get('hotels').controls ; let i = index"
+          [formGroupName]="i"
+          style="margin-top: 10px">
+            <div class="col-xs-8">
+              <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="col-xs-2">
+              <input type="number" class="form-control" formControlName="noOfDeals">
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-danger"
+              type="button"
+              (click)="removeDeal(i)">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-12">
+          <button 
+          type="button"
+          class="btn btn-success"
+          (click)="addDeals()">Add Deal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
