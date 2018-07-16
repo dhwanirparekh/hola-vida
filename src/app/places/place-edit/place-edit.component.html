@@ -63,7 +63,7 @@
       <div class="row">
         <div class="col-xs-12" formArrayName="hotels">
           <div class="row"
-          *ngFor = "let hotelCtrl of placeEditForm.get('hotels').controls ; let i = index"
+          *ngFor = "let hotelCtrl of placeEditFormHotels.controls ; let i = index"
           [formGroupName]="i"
           style="margin-top: 10px">
             <div class="col-xs-8">

@@ -1,5 +1,5 @@
 import {Place} from './place.model';
-import { EventEmitter, Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Hotel } from '../shared/hotel.model';
 import { DealsService } from '../deals-list/deals.service';
 import { Subject } from 'rxjs';
@@ -59,5 +59,9 @@ export class PlacesService{
         this.places.splice(index,1);
         this.placeListChanged.next(this.places.slice());
     }
-    
+
+   setPlaces(newplaceList: Place[]){
+        this.places = newplaceList;
+        this.placeListChanged.next(this.places.slice());
+    }
 }

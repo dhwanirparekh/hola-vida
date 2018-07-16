@@ -88,4 +88,6 @@ export class PlaceEditComponent implements OnInit {
     this.router.navigate(['../'],{relativeTo: this.route});
   }
  
+  get placeEditFormHotels() { return <FormArray>this.placeEditForm.get('hotels'); }
+
 }
