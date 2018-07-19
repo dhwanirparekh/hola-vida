@@ -1,7 +1,10 @@
-import { Component, OnInit} from '@angular/core';
-import { Response } from '@angular/http'
-import { DataStorageService } from '../../shared/data-storage.service';
-import { AuthService } from '../../auth/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as fromPlaces from '../../places/store/places.reducers';
+import { Observable } from 'rxjs';
+import * as fromAuth from '../../auth/store/auth.reducer';
+import * as AuthActions from '../../auth/store/auth.actions';
+import * as PlacesActions from '../../places/store/places.actions';
 
 @Component({
   selector: 'app-header',
@@ -9,28 +12,25 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  constructor(private dataStorageService: DataStorageService,
-    public authService: AuthService) { }
+
+  authState: Observable<fromAuth.State>;
+
+  constructor(private store: Store<fromPlaces.FeatureState>) { }
 
   ngOnInit() {
+    this.authState = this.store.select('auth');
   }
 
-  onSave(){
-   
-    this.dataStorageService.savePlaces()
-    .subscribe(
-      (response : Response) => console.log(response.json()),
-      (error) => console.log(error)
-   );
+  onSave() {
+    this.store.dispatch(new PlacesActions.StorePlaces());
   }
 
-  onFetch(){
-   this.dataStorageService.getPlaces();
+  onFetch() {
+    this.store.dispatch(new PlacesActions.FetchPlaces());
   }
 
-  logOut(){
-    this.authService.logOut();
+  logOut() {
+    this.store.dispatch(new AuthActions.LogOut());
   }
 
 }

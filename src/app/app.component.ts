@@ -7,7 +7,6 @@ import * as firbase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  
   ngOnInit(){
     firbase.initializeApp(
       {

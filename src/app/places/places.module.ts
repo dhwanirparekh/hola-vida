@@ -9,6 +9,10 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { PlacesRoutingModule } from "./places-routing.module";
 import { SharedModule } from "../shared/shared.module";
+import { StoreModule } from "@ngrx/store";
+import { placesReducers } from "./store/places.reducers";
+import { EffectsModule } from "@ngrx/effects";
+import { PlacesEffects } from "./store/places.effects";
 
 @NgModule({
     declarations: [
@@ -23,7 +27,9 @@ import { SharedModule } from "../shared/shared.module";
         CommonModule,
         ReactiveFormsModule,
         PlacesRoutingModule,
-        SharedModule
+        SharedModule,
+        StoreModule.forFeature('places',placesReducers),
+        EffectsModule.forFeature([PlacesEffects])
     ]
 })
 export class PlacesModule{

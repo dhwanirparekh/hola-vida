@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-xs-12">
-    <img [src]="selectedPlace.imagePath" alt="{{selectedPlace.name}}" class="img-responsive">
+    <img [src]="(selectedPlaceState | async).places[id].imagePath" 
+    alt="{{(selectedPlaceState | async).places[id].name}}" 
+    class="img-responsive">
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <h1>{{selectedPlace.name}}</h1>
+    <h1>{{(selectedPlaceState | async).places[id].name}}</h1>
   </div>
 </div>
 <div class="row">
@@ -26,13 +28,14 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-      {{selectedPlace.description}}
+      {{(selectedPlaceState | async).places[id].description}}
   </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let hotel of selectedPlace.hotels">
+        <li class="list-group-item"
+         *ngFor="let hotel of (selectedPlaceState | async).places[id].hotels">
           {{ hotel.name }} - {{ hotel.noOfDeals }}
         </li>
       </ul>

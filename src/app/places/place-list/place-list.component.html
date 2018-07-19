@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-xs-12">
     <app-place-item 
-      *ngFor="let placeItem of places; let i = index" 
+      *ngFor="let placeItem of (placesState | async).places; let i = index" 
       [place]="placeItem"
       [placeItemIndex]= "i"
     ></app-place-item>

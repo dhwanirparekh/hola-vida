@@ -12,8 +12,7 @@ export class PlaceItemComponent implements OnInit {
   @Input() place: Place;
   @Input() placeItemIndex: number;
   
-  constructor(private router: Router,
-  private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
   }

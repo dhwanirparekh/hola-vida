@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import { Hotel } from '../../shared/hotel.model';
-import { DealsService } from '../deals.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as DealListActions from '../deals-list-store/deals-list.actions';
+import * as fromDealList from '../../store/app.reducer';
 
 @Component({
   selector: 'app-deals-edit',
@@ -13,29 +15,32 @@ export class DealsEditComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   editMode = false;
-  editItemIndex: number;
   editedHotelDeal: Hotel;
 
   @ViewChild('dealForm') dealForm: NgForm;
 
-  constructor(private dealsService: DealsService) { }
+  constructor(private store: Store<fromDealList.AppState>) { }
 
   ngOnInit() {
-    this.subscription = this.dealsService.dealEditing.subscribe(
-      (index: number) => {
-        this.editMode = true;
-        this.editItemIndex = index;
-        this.editedHotelDeal = this.dealsService.getHotel(index);
-        this.dealForm.setValue({
-          'hotelname': this.editedHotelDeal.name,
-          'noofdeals': this.editedHotelDeal.noOfDeals
-        });
+    this.subscription = this.store.select('dealsList').subscribe(
+      data => {
+        if(data.editingDealIndex >-1){
+          this.editMode = true;
+          this.editedHotelDeal = data.editingDeal;
+          this.dealForm.setValue({
+            'hotelname': this.editedHotelDeal.name,
+            'noofdeals': this.editedHotelDeal.noOfDeals
+          });
+        } else{
+          this.editMode = false;
+        }
       }
     );
   }
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+    this.store.dispatch(new DealListActions.StopEditing());
   }
 
   onSubmit(){
@@ -45,15 +50,15 @@ export class DealsEditComponent implements OnInit, OnDestroy {
     const newDeal = new Hotel(hotelName,numOfDeals) ;
 
     if(this.editMode){
-      this.dealsService.updateDeal(this.editItemIndex, newDeal); 
+      this.store.dispatch(new DealListActions.UpdateDeal(newDeal));
     } else{
-      this.dealsService.addDeal(newDeal); 
+      this.store.dispatch(new DealListActions.AddDeal(newDeal));
     }
     this.onClear();
   }
 
   onDelete(){
-    this.dealsService.deleteDeal(this.editItemIndex);
+    this.store.dispatch(new DealListActions.DeleteDeal());
     this.onClear();
   }
 

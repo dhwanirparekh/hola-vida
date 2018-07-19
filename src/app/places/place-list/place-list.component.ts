@@ -1,32 +1,21 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
-import { Place } from '../place.model';
-import { PlacesService } from '../places.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import {Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromFeature from '../store/places.reducers';
 
 @Component({
   selector: 'app-place-list',
   templateUrl: './place-list.component.html',
   styleUrls: ['./place-list.component.css']
 })
-export class PlaceListComponent implements OnInit, OnDestroy{
-  
-  places: Place[];
-  placeListSubscription: Subscription;
+export class PlaceListComponent implements OnInit {
 
-  constructor(private placesService: PlacesService) { }
+  placesState: Observable<fromFeature.State>;
+
+  constructor(private store: Store<fromFeature.FeatureState>) { }
 
   ngOnInit() {
-
-    this.placeListSubscription = this.placesService.placeListChanged.subscribe(
-      (placelist: Place[]) => {
-        this.places = placelist;
-      }
-    );
-    this.places = this.placesService.getPlaces();
-
+    this.placesState = this.store.select('places');
   }
 
-  ngOnDestroy(){
-    this.placeListSubscription.unsubscribe();
-  }
 }

@@ -1,37 +1,91 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Hotel} from '../shared/hotel.model';
-import { DealsService } from './deals.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as DealListActions from './deals-list-store/deals-list.actions';
+import * as fromDeals from './deals-list-store/deals-list.reducer';
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 @Component({
   selector: 'app-deals-list',
   templateUrl: './deals-list.component.html',
   styleUrls: ['./deals-list.component.css'],
-  providers: []
-})
-export class DealsListComponent implements OnInit, OnDestroy {
- 
-  hotels: Hotel[];
-  subscription: Subscription;
+  animations: [
+    trigger('list1', [
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('void => *', [
+        animate(1000, keyframes([
+          style({
+            opacity: 0,
+            transform: 'translateX(-100px)',
+            offset: 0
+          }),
+          style({
+            opacity: 0.5,
+            transform: 'translateX(-50px)',
+            offset: 0.3
+          }),
+          style({
+            opacity: 1,
+            transform: 'translateX(-20px)',
+            offset: 0.8
+          }),
+          style({
+            opacity: 1,
+            transform: 'translateX(0)',
+            offset: 1
+          })
+        ]))
+      ]),
+      transition('* => void', [
+        group([
+          animate(200,
+            style({
+              color: 'red'
+            })),
+          animate(1000, keyframes([
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+              offset: 0
+            }),
+            style({
+              opacity: 1,
+              transform: 'translateX(20px)',
+              offset: 0.3
+            }),
+            style({
+              opacity: 0.5,
+              transform: 'translateX(50px)',
+              offset: 0.8
+            }),
+            style({
+              opacity: 0,
+              transform: 'translateX(100px)',
+              offset: 1
+            })
+          ]))
+        ])
+      ])
+    ])]
+  })
 
-  constructor(private dealsService: DealsService) {}
+
+export class DealsListComponent implements OnInit {
+
+  dealState: Observable<fromDeals.State>;
+
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.hotels = this.dealsService.getHotels();
-    this.subscription = this.dealsService.dealChanged.subscribe(
-      (newhotelsList: Hotel[]) => {
-        this.hotels = newhotelsList;
-      }
-    )
-
+    this.dealState = this.store.select('dealsList');
   }
 
-  onDealEdit(index: number){
-    this.dealsService.dealEditing.next(index);
-  }
-
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+  onDealEdit(index: number) {
+    this.store.dispatch(new DealListActions.StartEditing(index));
   }
 
 }
